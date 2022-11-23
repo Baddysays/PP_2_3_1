@@ -1,40 +1,49 @@
 package web.model;
 
 public class Car {
-    private int id;
-    private String model;
-    private int series;
+    private String brend;
+    private int model;
+    private String color;
 
     public Car() {
     }
 
-    public Car(int id, String model, int series) {
-        this.id = id;
+    public Car(String brend, int model, String color) {
+        this.brend = brend;
         this.model = model;
-        this.series = series;
+        this.color = color;
     }
 
-    public int getId() {
-        return id;
+    public String getBrend() {
+        return brend;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBrend(String brend) {
+        this.brend = brend;
     }
 
-    public String getModel() {
+    public int getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    public void setModel(int model) {
         this.model = model;
     }
 
-    public int getSeries() {
-        return series;
+    public String getColor() {
+        return color;
     }
 
-    public void setSeries(int series) {
-        this.series = series;
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "brend='" + brend + '\'' +
+                ", model=" + model +
+                ", color='" + color + '\'' +
+                '}';
     }
 }
