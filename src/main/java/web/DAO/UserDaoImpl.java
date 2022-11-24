@@ -1,11 +1,11 @@
 package web.DAO;
 
-import web.model.Car;
+import org.springframework.stereotype.Component;
 import web.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class UserDaoImpl implements UserDao{
 
     public final List<User> resultList;
@@ -23,5 +23,12 @@ public class UserDaoImpl implements UserDao{
     @Override
     public List<User> getFullListOfUser() {
         return resultList;
+    }
+
+    @Override
+    public List<User> getListOfUser(int count, List<User> fullList) {
+        System.out.println("сработал метод getListOfUser");
+        return (count >= 5) ? fullList : fullList.subList(0, count);
+
     }
 }

@@ -18,9 +18,9 @@
         </thead>
         <tbody>
         <tr th:each="user : ${list}">
-            <td th:text="${user.getId()}">Model</td>
-            <td th:text="${user.getName()}">Color</td>
-            <td th:text="${user.getAge()}">Series</td>
+            <td th:text="${user.getId()}">Id</td>
+           <td th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">Name</td>
+            <td th:text="${user.getAge()}">Age</td>
         </tr>
         </tbody>
     </table>

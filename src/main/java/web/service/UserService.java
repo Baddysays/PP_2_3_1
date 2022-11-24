@@ -9,4 +9,7 @@ public interface UserService {
     List<User> getFullListOfUser();
 
     List<User> getListOfUser(int count, List<User> fullList);
+
+    User idShow(int id);
+
 }

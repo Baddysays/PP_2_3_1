@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface UserDao {
     List<User> getFullListOfUser();
+
+    List<User> getListOfUser(int count, List<User> fullList);
 }

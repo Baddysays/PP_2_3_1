@@ -16,12 +16,16 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public List<User> getListOfUser(int count, List<User> fullList) {
-        System.out.println("сработал метод getListOfUser");
-        return (count >= 5) ? fullList : fullList.subList(0, count);
 
+        return userDao.getListOfUser(count, fullList);
+
+    }
+
+    @Override
+    public User idShow(int id) {
+        return userDao.resultList.stream().filter(user -> user.getId() == id).findAny().orElse(null);
     }
 }
 
