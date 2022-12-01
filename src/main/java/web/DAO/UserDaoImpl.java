@@ -1,34 +1,46 @@
 package web.DAO;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import web.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
-@Component
+@Repository
 public class UserDaoImpl implements UserDao{
 
-    public final List<User> resultList;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    {
-        resultList = new ArrayList<>();
+    @Override
+    public void addUser(User user) {
+        entityManager.persist(user);
 
-        resultList.add(new User(1, "Виктор", 23));
-        resultList.add(new User(2, "Грека", 16));
-        resultList.add(new User(3, "Иван", 66));
-        resultList.add(new User(4, "Лена", 32));
-        resultList.add(new User(5, "Потап", 37));
+
     }
 
     @Override
-    public List<User> getFullListOfUser() {
-        return resultList;
+    public List<User> listUsers() {
+        List userList = entityManager.createQuery("FROM User").getResultList();
+        return userList;
     }
 
     @Override
-    public List<User> getListOfUser(int count, List<User> fullList) {
-        System.out.println("сработал метод getListOfUser");
-        return (count >= 5) ? fullList : fullList.subList(0, count);
+    public void changeUser(User user) {
+        entityManager.merge(user);
 
+
+    }
+
+    @Override
+    public void removeUser(Long id) {
+        entityManager.createQuery("DELETE FROM User u WHERE u.id = :id ").setParameter("id", id).executeUpdate();
+    }
+
+    @Override
+    public User findById(Long id) {
+        return entityManager.find(User.class, id);
     }
 }

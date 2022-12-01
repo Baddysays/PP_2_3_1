@@ -1,12 +1,17 @@
 package web.DAO;
 
-import web.model.Car;
 import web.model.User;
 
 import java.util.List;
 
 public interface UserDao {
-    List<User> getFullListOfUser();
+    void addUser(User user);
 
-    List<User> getListOfUser(int count, List<User> fullList);
+    List<User> listUsers();
+
+    void changeUser(User user);
+
+    void removeUser(Long id);
+
+    User findById(Long id);
 }

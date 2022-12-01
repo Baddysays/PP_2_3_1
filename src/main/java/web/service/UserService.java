@@ -1,15 +1,17 @@
 package web.service;
 
-import web.model.Car;
 import web.model.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> getFullListOfUser();
+    void addUser(User user);
 
-    List<User> getListOfUser(int count, List<User> fullList);
+    List<User> listUsers();
 
-    User idShow(int id);
+    void changeUser(User user);
 
+    void removeUser(Long id);
+
+    User findById(Long id);
 }

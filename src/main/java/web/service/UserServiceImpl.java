@@ -1,32 +1,48 @@
 package web.service;
 
 import org.springframework.stereotype.Component;
-import web.DAO.UserDaoImpl;
+import org.springframework.transaction.annotation.Transactional;
+import web.DAO.UserDao;
 import web.model.User;
 
 import java.util.List;
 @Component
 public class UserServiceImpl implements UserService {
-   UserDaoImpl userDao = new UserDaoImpl();
+    private UserDao userDao;
 
-
-    @Override
-    public List<User> getFullListOfUser() {
-        return userDao.getFullListOfUser();
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
 
 
+    @Transactional
     @Override
-    public List<User> getListOfUser(int count, List<User> fullList) {
-
-        return userDao.getListOfUser(count, fullList);
-
+    public void addUser(User user) {
+        userDao.addUser(user);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public User idShow(int id) {
-        return userDao.resultList.stream().filter(user -> user.getId() == id).findAny().orElse(null);
+    public List<User> listUsers() {
+        return userDao.listUsers();
     }
+
+    @Transactional
+    @Override
+    public void changeUser(User user) {
+        userDao.changeUser(user);
+    }
+
+    @Transactional
+    @Override
+    public void removeUser(Long id) {
+        userDao.removeUser(id);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public User findById(Long id) {
+        return userDao.findById(id);
+    }
+
 }
-
-
