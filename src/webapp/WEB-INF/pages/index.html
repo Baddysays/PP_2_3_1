@@ -15,10 +15,12 @@
             border: 16px solid #ECE9E0;
             border-radius: 20px;
         }
+
         th {
             font-size: 18px;
             padding: 10px;
         }
+
         td {
             background: #F5D7BF;
             padding: 10px;
@@ -45,8 +47,10 @@
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
                 <td th:text="${user.email}"></td>
-                <td><a th:href="@{update/{id}(id=${user.id})}">ИЗМЕНИТЬ</a></td>
-                <td><a th:href="@{delete/{id}(id=${user.id})}">УДАЛИТЬ</a></td>
+                <td><a th:href="@{update/{id}(id=${user.getId()})}">ИЗМЕНИТЬ</a></td>
+                <td><form th:method="DELETE" th:action="@{delete/{id}(id=${user.getId()})}">
+                    <input type="submit" value="УДАЛИТЬ"/>
+                </form></td>
             </tr>
             </tbody>
         </table>

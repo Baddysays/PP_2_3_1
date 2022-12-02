@@ -1,17 +1,18 @@
 package web.DAO;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import web.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
+@Component
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
-    @PersistenceContext
+@PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -23,20 +24,21 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public List<User> listUsers() {
-        List userList = entityManager.createQuery("FROM User").getResultList();
-        return userList;
+        return entityManager.createQuery("FROM User").getResultList();
     }
 
     @Override
-    public void changeUser(User user) {
-        entityManager.merge(user);
-
+    public void updateUser(Long id,User user) {
+        User userUP = entityManager.find(User.class,id);
+        userUP.setFirstName(user.getFirstName());
+        userUP.setLastName(user.getLastName());
+        userUP.setEmail(user.getEmail());
 
     }
 
     @Override
     public void removeUser(Long id) {
-        entityManager.createQuery("DELETE FROM User u WHERE u.id = :id ").setParameter("id", id).executeUpdate();
+        entityManager.remove(findById(id));
     }
 
     @Override

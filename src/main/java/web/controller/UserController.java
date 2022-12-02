@@ -2,10 +2,8 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import web.DAO.UserDaoImpl;
 import web.model.User;
 import web.service.UserService;
 
@@ -17,6 +15,7 @@ public class UserController {
 
 
     private final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -39,9 +38,9 @@ public class UserController {
         model.addAttribute("users", users);
         return "index";
     }
-
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@ModelAttribute("user") User user,
+                             @PathVariable("id") Long id) {
         userService.removeUser(id);
         return "redirect:/";
     }
@@ -50,12 +49,12 @@ public class UserController {
     public String updateUserForm(@PathVariable("id") Long id, ModelMap model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
-        return "update";
+        return "/update";
     }
 
-    @PostMapping("/update")
-    public String updateUser(User user) {
-        userService.changeUser(user);
+    @PatchMapping("/update/{id}")
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+        userService.updateUser(id, user);
         return "redirect:/";
     }
 
